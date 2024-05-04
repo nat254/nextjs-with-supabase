@@ -15,9 +15,10 @@ import {
 
 import { Button } from "@/components/ui/button"
 import DialogFunc from "@/components/DialogFunc";
-import {createTodo, updateTodo} from "./actions";
+import {createTodo, deleteTodo, updateTodo} from "./actions";
 import DialogFuncTypes from "@/types";
 import EditDialogFunc from "@/components/EditDialogFunc";
+import DeleteFunc from "@/components/DeleteFunc";
 
 
 
@@ -37,11 +38,22 @@ export default async function TodoPage() {
         }
     }
 
-    const handleEdit = async (id:number, nameTodo:string, descriptionTodo:string,priorityTodo:number,doneTodo:boolean) => {
+    const handleEdit = async (id:number, name:string, description:string,priority:number,done:boolean) => {
         "use server";
         
         try{
-            await updateTodo({id, nameTodo, descriptionTodo, priorityTodo, doneTodo});
+            await updateTodo({id, name, description, priority, done});
+        }catch(error){
+            console.error('Error creating todo: ', error);
+        }
+    }
+
+    const handleDelete = async (id:number) => {
+        "use server";
+        
+        try{
+            await deleteTodo(id);
+            
         }catch(error){
             console.error('Error creating todo: ', error);
         }
@@ -56,6 +68,7 @@ export default async function TodoPage() {
             </div>
 
             <Table>
+
 
                 <TableCaption>TODO List.</TableCaption>
 
@@ -84,8 +97,9 @@ export default async function TodoPage() {
                             <TableCell className="text-right">
                                 
                                 {/* <Button style={{ marginRight: "15px", backgroundColor: "#E97451" }}>Edit</Button> */}
-                                <EditDialogFunc handleEdit={handleEdit} id={todo.id} name={todo.name} description={todo.description} priority = {todo.priority} done = {todo.done}></EditDialogFunc>
-                                <Button style={{ backgroundColor: "#5DADE2" }}>Delete</Button>
+                                <EditDialogFunc handleEdit={handleEdit} id={todo.id}></EditDialogFunc>
+                                {/* <Button onClick={() => {handleDelete(todo.id)}} style={{ backgroundColor: "#5DADE2" }}>Delete</Button> */}
+                                <DeleteFunc handleDelete={handleDelete} id={todo.id}></DeleteFunc>
                             </TableCell>
 
 

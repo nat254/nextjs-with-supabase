@@ -31,7 +31,7 @@ export async function updateTodo({ id, name, description, priority, done }: any)
 
     const { data, error } = await supabase
         .from('todo')
-        .update({ name:name, description:description, priority:priority, done })
+        .update({ name: name, description: description, priority: priority, done })
         .eq('id', id)
         .single()
 
@@ -42,16 +42,16 @@ export async function updateTodo({ id, name, description, priority, done }: any)
     // return data;
 }
 
-// export async function deleteTodo({ id }) {
-//     const { data, error } = await supabase
-//         .from('todo')
-//         .delete()
-//         .eq('id', id)
-//         .single()
+export async function deleteTodo(id: number) {
+    const { data, error } = await supabase
+        .from('todo')
+        .delete()
+        .eq('id', id)
+        .single()
 
-//         if (error) {
-//             throw new Error(error.message);
-//         }
+    if (error) {
+        throw new Error(error.message);
+    }
 
-//         return data;
-// }
+    return data;
+}
