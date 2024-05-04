@@ -1,9 +1,11 @@
+"use server";
+
 import { createClient } from '@/utils/supabase/server';
 
 const supabase = createClient();
 
 export async function getAllTodos() {
-    const { data, error } = await supabase.from('todo').select('*');
+    const { data, error } = await supabase.from('todo').select('*').order('id', { ascending: true });
     if (error) {
         throw new Error('Error fetching todos: ' + error.message);
     }

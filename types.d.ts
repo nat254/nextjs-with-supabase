@@ -1,9 +1,16 @@
-type DialogFuncTypes = {
-    id: number;
+export type DialogFuncTypes = {
     name: string;
     description: string;
     priority: number;
     done: boolean;
 }
 
-export default DialogFuncTypes;
+export type TodoProps = {
+    id: number;
+    name: string;
+    description: string;
+    priority: number;
+    done: boolean;
+    created_at: string;
+}
+
